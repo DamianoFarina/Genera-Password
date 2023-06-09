@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Generatore di Password</h1>
+    <div>
+        <label for="lunghezza">Lunghezza</label>
+        <input type="number" id="lunghezza" min="5" max="30" value="10">
+    </div>
+    <div>
+        <label for="caratteri-minuscoli">Caratteri Minuscoli</label>
+        <input type="checkbox" id="caratteri-minuscoli" checked>
+    </div>
+    <div>
+        <label for="caratteri-maiuscoli">Caratteri Maiuscoli</label>
+        <input type="checkbox" id="caratteri-maiuscoli" checked>
+    </div>
+    <div>
+        <label for="numeri">Numeri</label>
+        <input type="checkbox" id="numeri" checked>
+    </div>
+    <div>
+        <label for="caratteri-speciali">Caratteri Speciali</label>
+        <input type="checkbox" id="caratteri-speciali" checked>
+    </div>
+    <br>
+    <button id="genera-password">Genera Password</button>
+    <div id="risultato"></div>
+
+    <script>
+        const lunghezzapass = document.getElementById("lunghezza")
+        const caratteri_minuscoli = document.getElementById("caratteri-minuscoli")
+        const caratteri_maiuscoli = document.getElementById("caratteri-maiuscoli")
+        const numeri = document.getElementById("numeri")
+        const caratteri_speciali = document.getElementById("caratteri-speciali")
+        const genera_password = document.getElementById("genera-password")
+        const risultato = document.getElementById("risultato") 
+
+        const listaCaratteriMinuscoli = " abcdefghijklmnopqrstuvwxyz"
+        const listaCaratteriMaiuscoli = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        const listaNumeri = "0123456789"
+        const listaCaratteriSpeciali = "?!|.-,;#+*/()/\\£%&$€"
+
+        genera_password.addEventListener("click", generaPassword)
+
+        function generaPassword(){
+            let stringa = ""
+            let password = ""
+            if(caratteri_minuscoli.checked) stringa += listaCaratteriMinuscoli
+            if(caratteri_maiuscoli.checked) stringa += listaCaratteriMaiuscoli      
+            if(numeri.checked) stringa += listaNumeri 
+            if(caratteri_speciali.checked) stringa += listaCaratteriSpeciali
+
+            for(let i = 0; i<lunghezzapass.value; i++){ 
+                password += stringa.charAt(Math.floor(Math.random()*stringa.length)) //floor server per non avere indici con la virgola
+            }
+            risultato.innerHTML= ""
+            risultato.innerHTML=password
+        }
+    </script>
+
+</body>
+</html>
